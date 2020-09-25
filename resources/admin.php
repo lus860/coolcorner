@@ -17,7 +17,7 @@
             <a class="nav-link js-scroll-trigger" href="index.php?person=admin&proces=signin">Category</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&proces=signin">Product</a>
+            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&products=list">Products</a>
           </li>
       </ul>
       </div>
