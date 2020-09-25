@@ -1,6 +1,7 @@
 <?php session_start();
- if($_GET['products'] =='delete' && isset($_GET['id'])) {
-     $result_reg = mysqli_query($conn, "DELETE FROM products WHERE id=$_GET[id] ");?>
+ if($_GET['category'] =='delete' && isset($_GET['id'])) {
+     $result_reg = mysqli_query($conn, "DELETE FROM category WHERE c_id=$_GET[id] ");
+     mysqli_query($conn, "DELETE FROM products WHERE category_id=$_GET[id]");?>
 <!--
      <script>
         window.location.href = 'index.php?person=admin&products=list';
@@ -25,10 +26,10 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
        <ul class="navbar-nav ml-auto">
          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&proces=signin">Category</a>
+            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&category=list">Category</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&proces=signin">Product</a>
+            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&products=list">Products</a>
           </li>
       </ul>
       </div>
@@ -42,24 +43,20 @@
     </div>
   </header>
 <div class="container text-center">
-<h3><a href="index.php?person=admin&products=add">Add product</a></h3>
+<h3><a href="index.php?person=admin&category=add">Add Category</a></h3>
  <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Product Name</th>
       <th scope="col">Category Name</th>
-      <th scope="col">Description</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
-   <?php $result = mysqli_query($conn,"SELECT * FROM products INNER JOIN category ON products.category_id=category.c_id;");
+   <?php $result = mysqli_query($conn,"SELECT * FROM category;");
       while($row = $result->fetch_assoc()) {?>
     <tr>
-      <td><?php echo $row['p_name'] ?></td>
       <td><?php echo $row['c_name'] ?></td>
-      <td><?php echo $row['description'] ?></td>
-      <td><a href="index.php?person=admin&products=delete&id=<?php echo $row['id'] ?>">Delete/</a> <a href="index.php?person=admin&products=updete&id=<?php echo $row['id'] ?>"> Updete</a></td>
+      <td><a href="index.php?person=admin&category=delete&id=<?php echo $row['c_id'] ?>">Delete/</a> <a href="index.php?person=admin&category=updete&id=<?php echo $row['c_id'] ?>"> Updete</a></td>
      
     </tr>
   <?php } ?>

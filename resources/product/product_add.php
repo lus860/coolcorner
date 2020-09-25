@@ -11,7 +11,7 @@
             array_push($errors,$error_pname);
         }
         if(empty($description)) {
-            $error_lname = "Please enter description";
+            $error_description = "Please enter description";
             array_push($errors,$error_description);
         }
         
@@ -21,10 +21,10 @@
         }
         
         if(count($errors) == 0) {
-            $result_reg = mysqli_query($conn, "INSERT INTO products (p_name, category_id, description) VALUES('$p_name','$category', '$description')");
-         }
+            $result_reg = mysqli_query($conn, "INSERT INTO products (p_name, category_id, description) VALUES('$p_name','$category','$description')");
            
-    
+         }
+
     }
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -36,10 +36,10 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&proces=signin">Category</a>
+            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&category=list">Category</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&products=list">Product</a>
+            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&products=list">Products</a>
           </li>
       </ul>
       </div>
@@ -88,7 +88,7 @@
     <select class="form-control" id="exampleFormControlSelect1" name="category">
     <?php $result = mysqli_query($conn,"SELECT * FROM category");
      while($row = $result->fetch_assoc()) {?>
-      <option value="<?php echo $row['id'] ?>" ><?php echo $row['c_name'] ?></option>
+      <option value="<?php echo $row['c_id'] ?>" ><?php echo $row['c_name'] ?></option>
             <?php }?>
     </select>
     </div>

@@ -8,11 +8,18 @@ if(isset($_GET['person']) && $_GET['person'] == 'admin'){
     }elseif(isset($_GET['proces']) && $_GET['proces'] == 'logined'){
          include_once "resources/admin.php"; 
     }elseif(isset($_GET['products']) && ($_GET['products'] == 'list' || $_GET['products'] == 'delete')){
-        include_once "resources/products.php"; 
+        include_once "resources/product/products.php"; 
     }elseif(isset($_GET['products']) && $_GET['products'] == 'add'){
-        include_once "resources/product_add.php"; 
+        include_once "resources/product/product_add.php"; 
     }elseif(isset($_GET['products']) && $_GET['products'] == 'updete'){
-        include_once "resources/product_updete.php"; 
+        include_once "resources/product/product_updete.php"; 
+    }
+    elseif(isset($_GET['category']) && ($_GET['category'] == 'list' || $_GET['category'] == 'delete')){
+        include_once "resources/category/category.php"; 
+    }elseif(isset($_GET['category']) && $_GET['category'] == 'add'){
+        include_once "resources/category/category_add.php"; 
+    }elseif(isset($_GET['category']) && $_GET['category'] == 'updete'){
+        include_once "resources/category/category_updete.php"; 
     }
     else{
        include_once "resources/auth/signIn.php"; 

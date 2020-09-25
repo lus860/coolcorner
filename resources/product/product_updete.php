@@ -1,6 +1,5 @@
 <?php
 if($_GET['products'] =='updete' && isset($_GET['id'])) {
-    $id=$_GET['id'];
      $result_p = mysqli_query($conn, "SELECT * FROM products WHERE id=$_GET[id]");
    $result_p = $result_p->fetch_assoc();
    
@@ -10,11 +9,13 @@ if($_GET['products'] =='updete' && isset($_GET['id'])) {
         $p_name = $_POST['p_name'];
         $description = $_POST['description'];
         $category = $_POST['category'];
+        $id = $_POST['id'];
         
         if(empty($p_name )) {
             $error_pname = "Please enter product name";
             array_push($errors,$error_pname);
         }
+        
         if(empty($description)) {
             $error_lname = "Please enter description";
             array_push($errors,$error_description);
@@ -26,8 +27,10 @@ if($_GET['products'] =='updete' && isset($_GET['id'])) {
         }
         
         if(count($errors) == 0) {
-            $result_reg = mysqli_query($conn, "UPDATE products SET p_name=$p_name, category_id=$category, description=$description WHERE id=$_GET[id]");
+            $result_reg = mysqli_query($conn, "UPDATE products SET p_name = '$p_name', category_id = '$category', description = '$description' WHERE id=$id");
+            
       
+      }
     }
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -39,10 +42,10 @@ if($_GET['products'] =='updete' && isset($_GET['id'])) {
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&proces=signin">Category</a>
+            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&category=list">Category</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&products=list">Product</a>
+            <a class="nav-link js-scroll-trigger" href="index.php?person=admin&products=list">Products</a>
           </li>
       </ul>
       </div>
@@ -61,7 +64,7 @@ if($_GET['products'] =='updete' && isset($_GET['id'])) {
         <div class="col-lg-8 mx-auto">
           <h2>Updete Product</h2>
     
-    <form action="index.php?person=admin&products=add" method="POST">
+    <form action="index.php?person=admin&products=updete" method="POST">
      <div class="form-group">
         <label for="p_name">Product name</label>
         <input type="text" class="form-control" name="p_name" id="p_name" value="<?= $result_p['p_name'] ?>">'
@@ -77,6 +80,7 @@ if($_GET['products'] =='updete' && isset($_GET['id'])) {
     <div class="form-group">
         <label for="description">Description</label>
         <input type="text" class="form-control" name="description" id="description" value="<?= $result_p['description'] ?>">
+        <input type="hidden" class="form-control" name="id" value="<?= $_GET['id'] ?>">
     </div>
      <?php  if (isset($error_description)) :?>
     <div class="alert alert-danger">
@@ -91,8 +95,8 @@ if($_GET['products'] =='updete' && isset($_GET['id'])) {
     <select class="form-control" id="exampleFormControlSelect1" name="category">
     <?php $result = mysqli_query($conn,"SELECT * FROM category");
      while($row = $result->fetch_assoc()) {?>
-      <option value="<?php echo $row['id'] ?>" 
-      <?php if($row['id'] == $result_p['category_id']){ 'selected'; } 
+      <option value="<?php echo $row['c_id'] ?>" 
+      <?php if($row['c_id'] == $result_p['category_id']){ echo 'selected'; } 
                                            ;?> ><?php echo $row['c_name']; ?></option>
       <?php };?>
     </select>
